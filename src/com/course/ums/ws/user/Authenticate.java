@@ -1,6 +1,5 @@
 package com.course.ums.ws.user;
 
-import com.course.ums.Queries.Queries;
 import com.course.ums.auth.AuthManager;
 import com.course.ums.db.DBManager;
 import com.course.ums.ws.JSONRoute;
@@ -13,15 +12,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * Created by Darius on 11/6/2017.
+ * Created by vh on 11/9/17.
  */
 public class Authenticate extends JSONRoute {
-
+    @Override
     public JSONObject handleJSONRequest(JSONObject request) throws Exception {
         String email = request.getString("email");
         String password = request.getString("password");
 
-        PreparedStatement preparedStatement = DBManager.getConnection().prepareStatement( Queries.SELECT_USER);
+        PreparedStatement preparedStatement = DBManager.getConnection().prepareStatement("SELECT id FROM users WHERE email=? AND password=?");
         preparedStatement.setString(1, email);
         preparedStatement.setString(2, password);
 
@@ -35,7 +34,7 @@ public class Authenticate extends JSONRoute {
         rs = preparedStatement.executeQuery();
 
         if (rs.next()) {
-            roles.put( AuthManager.ROLE_ADMIN);
+            roles.put(AuthManager.ROLE_ADMIN);
         }
 
         preparedStatement = DBManager.getConnection().prepareStatement("SELECT id FROM students WHERE id=?");
@@ -64,6 +63,5 @@ public class Authenticate extends JSONRoute {
 
         return result;
     }
-
 
 }

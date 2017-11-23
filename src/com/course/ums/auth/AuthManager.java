@@ -1,7 +1,7 @@
 package com.course.ums.auth;
 
 /**
- * Created by Darius on 11/14/2017.
+ * Created by vh on 11/9/17.
  */
 public class AuthManager {
 

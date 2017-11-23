@@ -10,7 +10,6 @@ import spark.Route;
  */
 public abstract class JSONRoute implements Route {
 
-
     @Override
     public Object handle(Request request, Response response) {
         JSONObject result;
